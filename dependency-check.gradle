@@ -1,0 +1,40 @@
+apply plugin: 'org.owasp.dependencycheck'
+
+dependencyCheck {
+    // fail build on any vulnerability
+    failBuildOnCVSS = 7.0
+    
+    // suppress known vulnerabilities
+    suppressionFile = 'dependency-check-suppressions.xml'
+    
+    // analyzer configurations
+    analyzers {
+        experimentalEnabled = false
+        assemblyEnabled = true
+        centralEnabled = true
+        nuspecEnabled = true
+        nugetconfEnabled = false
+        nuspecEnabled = false
+        autoconfEnabled = false
+        cmakeEnabled = false
+        cocoapodsEnabled = false
+        swiftEnabled = true
+        swiftPackageManagerEnabled = false
+        golangDepEnabled = false
+        golangModEnabled = false
+        pythonDistributionEnabled = false
+        pythonPipEnabled = false
+        rubygemsEnabled = false
+        osPackagesEnabled = false
+        rubygemsEnabled = false
+    }
+    
+    // skip certain configurations
+    skipConfigurations = ['androidTestImplementation', 'testImplementation', 'debugImplementation']
+    
+    // output formats
+    formats = ['html', 'xml', 'json']
+    
+    // output directory
+    outputDirectory = 'build/reports/dependency-check'
+}
