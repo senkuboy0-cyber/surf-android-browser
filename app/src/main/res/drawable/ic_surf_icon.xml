@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    
+    <!-- Small icon version for notifications and status bar -->
+    <!-- Background circle -->
+    <path
+        android:fillColor="@color/primary"
+        android:pathData="M24,0C37.3,0 48,10.7 48,24C48,37.3 37.3,48 24,48C10.7,48 0,37.3 0,24C0,10.7 10.7,0 24,0Z"/>
+    
+    <!-- Minimal surf wave -->
+    <path
+        android:fillColor="@color/primary_light"
+        android:pathData="M4,32C8,30 12,34 16,32C20,30 24,34 28,32C32,30 36,34 40,32C42,31 44,33 44,33L44,48L4,48Z"/>
+    
+    <!-- Browser window -->
+    <path
+        android:fillColor="@android:color/white"
+        android:strokeColor="@color/primary_dark"
+        android:strokeWidth="1.5"
+        android:pathData="M10,10C10,8.5 11.5,7 13,7L35,7C36.5,7 38,8.5 38,10L38,28C38,29.5 36.5,31 35,31L13,31C11.5,31 10,29.5 10,28Z"/>
+    
+    <!-- URL bar -->
+    <path
+        android:fillColor="@color/neutral_light"
+        android:pathData="M12,12C12,11 13,10 14,10L34,10C35,10 36,11 36,12L36,15C36,16 35,17 34,17L14,17C13,17 12,16 12,15Z"/>
+    
+    <!-- Browser content -->
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M12,17L36,17L36,28L12,28Z"/>
+    
+    <!-- S letter -->
+    <path
+        android:fillColor="@color/primary"
+        android:pathData="M16,19C16,18 17,18 18,18C19,18 20,18 20,19L20,21C20,22 19,23 18,23C17,23 16,22 16,21ZM16,23L20,23L20,25C20,26 19,27 18,27C17,27 16,26 16,25Z"/>
+    
+    <!-- Lock icon -->
+    <path
+        android:fillColor="@color/secure_green"
+        android:pathData="M26,12C26,11 27,10 28,10C29,10 30,11 30,12L30,14L26,14ZM27,14L27,18C27,19 27.5,19.5 28.5,19.5C29.5,19.5 30,19 30,18L30,14"/>
+    
+    <!-- Navigation arrows -->
+    <path
+        android:fillColor="@color/accent"
+        android:pathData="M22,12L20,14L22,16M34,12L32,14L34,16"/>
+    
+    <!-- Content lines -->
+    <path
+        android:fillColor="@color/neutral"
+        android:pathData="M12,20L36,20L36,21L12,21Z M12,22L36,22L36,23L12,23Z M12,24L28,24L28,25L12,25Z"/>
+    
+    <!-- Wave reflection -->
+    <path
+        android:fillColor="@android:color/white"
+        android:fillAlpha="0.3"
+        android:pathData="M4,35C8,33 12,37 16,35C20,33 24,37 28,35C32,33 36,37 40,35C42,34 44,36 44,36L44,38L4,38Z"/>
+    
+    <!-- Water drops -->
+    <path
+        android:fillColor="@android:color/white"
+        android:fillAlpha="0.5"
+        android:pathData="M30,25C30.5,25 31,25.5 31,26L31,27C31,27.5 30.5,28 30,28C29.5,28 29,27.5 29,27L29,26C29,25.5 29.5,25 30,25Z"/>
+    
+    <path
+        android:fillColor="@android:color/white"
+        android:fillAlpha="0.4"
+        android:pathData="M34,26C34.5,26 35,26.5 35,27L35,27.5C35,28 34.5,28.5 34,28.5C33.5,28.5 33,28 33,27.5L33,27C33,26.5 33.5,26 34,26Z"/>
+
+</vector>
