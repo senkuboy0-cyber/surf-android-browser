@@ -1,0 +1,48 @@
+name: Setup Gradle Wrapper
+
+on:
+  push:
+    paths:
+      - 'init-gradle-wrapper.sh'
+  workflow_dispatch:
+
+jobs:
+  setup-gradle:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Setup Java
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Initialize Gradle Wrapper
+      run: |
+        chmod +x init-gradle-wrapper.sh
+        ./init-gradle-wrapper.sh
+
+    - name: Test Gradle
+      run: |
+        ./gradlew --version
+        ./gradlew tasks --all
+
+    - name: Upload Gradle Wrapper
+      uses: actions/upload-artifact@v4
+      with:
+        name: gradle-wrapper
+        path: |
+          gradlew
+          gradlew.bat
+          gradle/wrapper/
+
+    - name: Commit updated wrapper
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add gradlew gradlew.bat gradle/wrapper/
+        git diff --staged --quiet || git commit -m "Update Gradle wrapper files"
+        git push
