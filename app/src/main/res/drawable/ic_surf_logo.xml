@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="120dp"
+    android:height="120dp"
+    android:viewportWidth="120"
+    android:viewportHeight="120">
+    
+    <!-- Main circle background -->
+    <path
+        android:fillColor="@color/primary"
+        android:pathData="M60,0C93.1,0 120,26.9 120,60C120,93.1 93.1,120 60,120C26.9,120 0,93.1 0,60C0,26.9 26.9,0 60,0Z"/>
+    
+    <!-- Wave effect - top -->
+    <path
+        android:fillColor="@color/primary_light"
+        android:pathData="M10,30C20,25 30,35 40,30C50,25 60,35 70,30C80,25 90,35 100,30C105,27.5 110,32.5 110,32.5L110,45L10,45Z"/>
+    
+    <!-- Surf board shape -->
+    <path
+        android:fillColor="@android:color/white"
+        android:strokeColor="@color/accent"
+        android:strokeWidth="2"
+        android:pathData="M25,55C25,52.5 27.5,50 30,50L90,50C92.5,50 95,52.5 95,55L95,70C95,72.5 92.5,75 90,75L30,75C27.5,75 25,72.5 25,70Z"/>
+    
+    <!-- Browser window on surf board -->
+    <path
+        android:fillColor="@color/primary"
+        android:pathData="M35,56L85,56L85,69L35,69Z"/>
+    
+    <!-- Browser controls -->
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M38,58C38,57 39,56 40,56L45,56C46,56 47,57 47,58L47,60C47,61 46,62 45,62L40,62C39,62 38,61 38,60Z"/>
+    
+    <!-- Back button -->
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M50,58L48,60L50,62"/>
+    
+    <!-- Forward button -->
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M54,58L52,60L54,62"/>
+    
+    <!-- URL bar -->
+    <path
+        android:fillColor="@android:color/white"
+        android:fillAlpha="0.8"
+        android:pathData="M57,58L82,58C82.5,58 83,58.5 83,59L83,62C83,62.5 82.5,63 82,63L57,63C56.5,63 56,62.5 56,62L56,59C56,58.5 56.5,58 57,58Z"/>
+    
+    <!-- Lock icon -->
+    <path
+        android:fillColor="@color/secure_green"
+        android:pathData="M59,59C59,58 60,57 61,57L63,57C64,57 65,58 65,59L65,62L59,62ZM60,62L60,65C60,66 60.5,66.5 61.5,66.5L62.5,66.5C63.5,66.5 64,66 64,65L64,62"/>
+    
+    <!-- Content area -->
+    <path
+        android:fillColor="@android:color/white"
+        android:fillAlpha="0.9"
+        android:pathData="M35,64L85,64L85,67L35,67Z"/>
+    
+    <!-- Wave person surfing -->
+    <path
+        android:fillColor="@color/accent"
+        android:pathData="M50,48C51,48 52,49 52,50C52,51 51,52 50,52C49,52 48,51 48,50C48,49 49,48 50,48Z"/>
+    
+    <!-- Surfer body -->
+    <path
+        android:fillColor="@color/accent"
+        android:strokeColor="@color/accent"
+        android:strokeWidth="1.5"
+        android:pathData="M50,52L50,55M48,53L52,53M49,55L51,55"/>
+    
+    <!-- Arms stretched -->
+    <path
+        android:fillColor="none"
+        android:strokeColor="@color/accent"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:pathData="M45,53L40,51L30,55"/>
+    
+    <path
+        android:fillColor="none"
+        android:strokeColor="@color/accent"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:pathData="M55,53L60,51L70,55"/>
+    
+    <!-- Text "SURF" -->
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M25,85C25,84 26,83 27,83L31,83C32,83 33,84 33,85L33,89L25,89ZM26,86L26,88L28,88L28,86Z"/>
+    
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M36,85C36,84 36.5,83.5 37,83.5L40,83.5C40.5,83.5 41,84 41,84.5L41,88.5C41,89 40.5,89.5 40,89.5L37,89.5C36.5,89.5 36,89 36,88.5Z"/>
+    
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M45,83L47,89L45.5,89L45,87L44,87L43.5,89L42,89L44,83ZM44.5,84.5L44.2,86L44.8,86Z"/>
+    
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M49,83L52,83C52.5,83 53,83.5 53,84L53,88L52,88L52,84L51,84L51,88L50,88L50,84L49,84L49,88L48,88L48,84C48,83.5 48.5,83 49,83Z"/>
+    
+    <!-- Ocean waves - bottom -->
+    <path
+        android:fillColor="@color/primary_dark"
+        android:pathData="M10,80C20,75 30,85 40,80C50,75 60,85 70,80C80,75 90,85 100,80C105,77.5 110,82.5 110,82.5L110,95L10,95Z"/>
+    
+    <!-- Wave splash effect -->
+    <path
+        android:fillColor="@android:color/white"
+        android:fillAlpha="0.4"
+        android:pathData="M15,75C18,73 20,76 22,75C24,74 26,76 28,75C30,74 32,76 34,75"/>
+    
+    <!-- Reflection effect -->
+    <path
+        android:fillColor="@android:color/white"
+        android:fillAlpha="0.2"
+        android:pathData="M35,58L85,58L85,60L35,60Z"/>
+    
+    <!-- Water drops -->
+    <path
+        android:fillColor="@android:color/white"
+        android:fillAlpha="0.6"
+        android:pathData="M68,45C69,45 70,46 70,47L70,49C70,50 69,50.5 68,50.5C67,50.5 66.5,50 66.5,49L66.5,47C66.5,46 67,45 68,45Z"/>
+    
+    <path
+        android:fillColor="@android:color/white"
+        android:fillAlpha="0.5"
+        android:pathData="M75,48C76,48 76.5,48.5 76.5,49.5L76.5,51C76.5,51.5 76,52 75.5,52C75,52 74.5,51.5 74.5,51L74.5,49.5C74.5,48.5 75,48 75,48Z"/>
+    
+    <!-- Glow effect -->
+    <path
+        android:fillColor="@android:color/white"
+        android:fillAlpha="0.1"
+        android:pathData="M30,50L90,50L90,75L30,75L30,50Z"/>
+
+</vector>
