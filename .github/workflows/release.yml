@@ -1,0 +1,235 @@
+name: Release Production APK
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      release_version:
+        description: 'Release version (e.g., 1.0.0)'
+        required: true
+        type: string
+      release_notes:
+        description: 'Release notes'
+        required: false
+        type: string
+        default: 'Bug fixes and performance improvements'
+
+jobs:
+  build-release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup Java JDK
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: gradle
+
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+      with:
+        api-level: 34
+        ndk: false
+        cmake: '3.22.1'
+
+    - name: Cache Gradle Dependencies
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.gradle/caches/modules-2
+          ~/.gradle/caches/jars-3
+          ~/.gradle/wrapper
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+
+    - name: Setup Signing Keys
+      env:
+        SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+        SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
+        SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
+        SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
+      run: |
+        echo "$SIGNING_KEY" | base64 -d > app/release.keystore
+        echo "keyStoreFile file('app/release.keystore')" >> app/build.gradle.kts
+        echo "keyPassword signingConfigs.release.keyPassword" >> app/build.gradle.kts
+        echo "keyAlias signingConfigs.release.keyAlias" >> app/build.gradle.kts
+        echo "storePassword signingConfigs.release.storePassword" >> app/build.gradle.kts
+
+    - name: Add Release Signing Config
+      run: |
+        cat >> app/build.gradle.kts << 'EOF'
+        
+        android {
+            signingConfigs {
+                create("release") {
+                    keyAlias = findProperty("SIGNING_KEY_ALIAS") ?: "surf_browser"
+                    keyPassword = findProperty("SIGNING_KEY_PASSWORD") ?: "android"
+                    storeFile = file("release.keystore")
+                    storePassword = findProperty("SIGNING_STORE_PASSWORD") ?: "android"
+                }
+            }
+            buildTypes {
+                release {
+                    isMinifyEnabled = true
+                    isShrinkResources = true
+                    proguardFiles(
+                        getDefaultProguardFile("proguard-android-optimize.txt"),
+                        "proguard-rules.pro"
+                    )
+                    signingConfig = signingConfigs.getByName("release")
+                }
+            }
+        }
+        EOF
+
+    - name: Grant Execute Permission for Gradle
+      run: chmod +x ./gradlew
+
+    - name: Clean Project
+      run: ./gradlew clean
+
+    - name: Build Release APK
+      run: ./gradlew assembleRelease --stacktrace
+
+    - name: Build Release Bundle
+      run: ./gradlew bundleRelease --stacktrace
+
+    - name: Extract APK Information
+      id: apk_info
+      run: |
+        VERSION=${{ github.ref_name }}
+        if [ -z "$VERSION" ]; then
+            VERSION=${{ github.event.inputs.release_version }}
+        fi
+        APK_PATH="app/build/outputs/apk/release/app-release.apk"
+        APK_SIZE=$(stat -c%s "$APK_PATH")
+        APK_DATE=$(date +%Y-%m-%d)
+        COMMIT_HASH=$(git rev-parse --short HEAD)
+        
+        echo "version=$VERSION" >> $GITHUB_OUTPUT
+        echo "apk_size=$APK_SIZE" >> $GITHUB_OUTPUT
+        echo "apk_date=$APK_DATE" >> $GITHUB_OUTPUT
+        echo "commit_hash=$COMMIT_HASH" >> $GITHUB_OUTPUT
+
+    - name: Generate Checksums
+      run: |
+        cd app/build/outputs/apk/release/
+        sha256sum app-release.apk > sha256sum.txt
+        md5sum app-release.apk > md5sum.txt
+        sha1sum app-release.apk > sha1sum.txt
+
+    - name: Upload Release Assets
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: app/build/outputs/apk/release/app-release.apk
+        asset_name: surf-browser-${{ steps.apk_info.outputs.version }}.apk
+        asset_content_type: application/vnd.android.package-archive
+      if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+
+    - name: Upload Checksum Assets
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: app/build/outputs/apk/release/sha256sum.txt
+        asset_name: sha256sum.txt
+        asset_content_type: text/plain
+      if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+
+    - name: Create Release (Tag Push)
+      uses: softprops/action-gh-release@v2
+      with:
+        body: |
+          ## 🌊 Surf Browser ${{ steps.apk_info.outputs.version }}
+          
+          ### 🚀 What's New:
+          ${{ github.event.inputs.release_notes || github.event.release.body }}
+          
+          ### 📱 Build Information:
+          - **Version**: ${{ steps.apk_info.outputs.version }}
+          - **Build Date**: ${{ steps.apk_info.outputs.apk_date }}
+          - **Commit**: ${{ steps.apk_info.outputs.commit_hash }}
+          - **Size**: ${{ steps.apk_info.outputs.apk_size }} bytes
+          
+          ### 🔧 Installation:
+          1. Download `surf-browser-${{ steps.apk_info.outputs.version }}.apk`
+          2. Enable "Install from unknown sources"
+          3. Install the APK
+          
+          ### 🆔 Verification:
+          - **SHA256**: Check `sha256sum.txt`
+          - **MD5**: Check `md5sum.txt`
+          - **SHA1**: Check `sha1sum.txt`
+          
+          ---
+          _Built with ❤️ for the best browsing experience_
+          
+        draft: false
+        prerelease: false
+        files: |
+          app/build/outputs/apk/release/app-release.apk
+          app/build/outputs/apk/release/sha256sum.txt
+          app/build/outputs/apk/release/md5sum.txt
+          app/build/outputs/apk/release/sha1sum.txt
+        generate_release_notes: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+
+    - name: Create Release (Manual)
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: v${{ github.event.inputs.release_version }}
+        name: Surf Browser ${{ github.event.inputs.release_version }}
+        body: |
+          ## 🌊 Surf Browser ${{ github.event.inputs.release_version }}
+          
+          ### 🚀 What's New:
+          ${{ github.event.inputs.release_notes }}
+          
+          ### 📱 Build Information:
+          - **Version**: ${{ github.event.inputs.release_version }}
+          - **Build Date**: ${{ steps.apk_info.outputs.apk_date }}
+          - **Commit**: ${{ steps.apk_info.outputs.commit_hash }}
+          - **Size**: ${{ steps.apk_info.outputs.apk_size }} bytes
+          
+          ---
+        draft: false
+        prerelease: false
+        files: |
+          app/build/outputs/apk/release/app-release.apk
+        generate_release_notes: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      if: github.event_name == 'workflow_dispatch'
+
+    - name: Notify Success
+      if: success()
+      run: |
+        echo "🎉 Release APK Built Successfully!"
+        echo "📦 Version: ${{ steps.apk_info.outputs.version }}"
+        echo "📱 Size: ${{ steps.apk_info.outputs.apk_size }} bytes"
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: surf-browser-release-v${{ steps.apk_info.outputs.version }}
+        path: |
+          app/build/outputs/apk/release/app-release.apk
+          app/build/outputs/apk/release/sha256sum.txt
+          app/build/outputs/apk/release/md5sum.txt
+          app/build/outputs/apk/release/sha1sum.txt
+        retention-days: 90
+      if: always()
