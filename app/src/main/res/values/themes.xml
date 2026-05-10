@@ -1,0 +1,77 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme -->
+    <style name="Theme.SurfBrowser" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Primary brand color -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorOnPrimary">@color/primary_text</item>
+        <item name="colorPrimaryContainer">@color/primary_light</item>
+        <item name="colorOnPrimaryContainer">@color/primary_text</item>
+        
+        <!-- Secondary brand color -->
+        <item name="colorSecondary">@color/accent</item>
+        <item name="colorOnSecondary">@color/background</item>
+        <item name="colorSecondaryContainer">@color/accent_light</item>
+        <item name="colorOnSecondaryContainer">@color/primary_text</item>
+        
+        <!-- Background color -->
+        <item name="android:colorBackground">@color/background</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorOnSurface">@color/primary_text</item>
+        
+        <!-- Status bar and navigation bar -->
+        <item name="android:statusBarColor">@color/status_bar</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:navigationBarColor">@color/nav_bar</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
+        
+        <!-- Toolbar colors -->
+        <item name="toolbar_background">@color/toolbar_background</item>
+        <item name="url_bar_background">@color/url_bar_background</item>
+        
+        <!-- Text colors -->
+        <item name="android:textColorPrimary">@color/primary_text</item>
+        <item name="android:textColorSecondary">@color/secondary_text</item>
+        
+        <!-- Card styles -->
+        <item name="cardBackgroundColor">@color/surface</item>
+        
+        // Custom attributes
+        <item name="tabIndicatorColor">@color/tab_indicator</item>
+        <item name="downloadProgressColor">@color/download_progress</item>
+        
+        <!-- WebView background -->
+        <item name="webview_background">@color/background</item>
+    </style>
+    
+    <!-- Dark theme variant -->
+    <style name="Theme.SurfBrowser.Dark" parent="Theme.SurfBrowser">
+        <item name="colorPrimary">@color/dark_primary</item>
+        <item name="colorOnPrimary">@color/dark_primary_text</item>
+        <item name="colorPrimaryContainer">@color/dark_primary</item>
+        <item name="colorOnPrimaryContainer">@color/dark_primary_text</item>
+        
+        <item name="android:colorBackground">@color/dark_background</item>
+        <item name="colorSurface">@color/dark_surface</item>
+        <item name="colorOnSurface">@color/dark_primary_text</item>
+        
+        <!-- Dark mode status bar -->
+        <item name="android:statusBarColor">@color/dark_toolbar</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:navigationBarColor">@color/dark_toolbar</item>
+        <item name="android:windowLightNavigationBar">false</item>
+        
+        <!-- Dark toolbar colors -->
+        <item name="toolbar_background">@color/toolbar_background_dark</item>
+        <item name="url_bar_background">@color/url_bar_background_dark</item>
+        
+        <!-- Dark text colors -->
+        <item name="android:textColorPrimary">@color/dark_primary_text</item>
+        <item name="android:textColorSecondary">@color/dark_secondary_text</item>
+        
+        <!-- Dark card colors -->
+        <item name="cardBackgroundColor">@color/surface_dark</item>
+        
+        <!-- Dark WebView background -->
+        <item name="webview_background">@color/dark_background</item>
+    </style>
+</resources>
