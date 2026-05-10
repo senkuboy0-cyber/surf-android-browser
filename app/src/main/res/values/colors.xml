@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary Colors -->
+    <color name="primary">#1976D2</color>
+    <color name="primary_dark">#1565C0</color>
+    <color name="primary_light">#42A5F5</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#757575</text>
+    
+    <!-- Background Colors -->
+    <color name="background">#FFFFFF</color>
+    <color name="background_dark">#121212</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="surface_dark">#1E1E1E</color>
+    
+    <!-- Accent Colors -->
+    <color name="accent">#FF4081</color>
+    <color name="accent_dark">#F50057</color>
+    <color name="accent_light">#FF80AB</color>
+    
+    <!-- Status Bar Colors -->
+    <color name="status_bar">#000000</color>
+    <color name="nav_bar">#000000</color>
+    
+    <!-- Error Colors -->
+    <color name="error">#F44336</color>
+    <color name="error_light">#FFCDD2</color>
+    
+    <!-- Success Colors -->
+    <color name="success">#4CAF50</color>
+    <color name="success_light">#C8E6C9</color>
+    
+    <!-- Warning Colors -->
+    <color name="warning">#FF9800</color>
+    <color name="warning_light">#FFE0B2</color>
+    
+    <!-- Info Colors -->
+    <color name="info">#2196F3</color>
+    <color name="info_light">#BBDEFB</color>
+    
+    <!-- Neutral Colors -->
+    <color name="neutral">#9E9E9E</color>
+    <color name="neutral_light">#F5F5F5</color>
+    <color name="neutral_dark">#616161</color>
+    
+    <!-- Browser Specific Colors -->
+    <color name="toolbar_background">#F5F5F5</color>
+    <color name="toolbar_background_dark">#2C2C2C</color>
+    <color name="url_bar_background">#FFFFFF</color>
+    <color name="url_bar_background_dark">#1C1C1C</color>
+    <color name="tab_indicator">#1976D2</color>
+    <color name="download_progress">#4CAF50</color>
+    
+    <!-- Extension Colors -->
+    <color name="extension_card_background">#FFFFFF</color>
+    <color name="extension_card_background_dark">#2C2C2C</color>
+    <color name="extension_icon_background">#E3F2FD</color>
+    
+    <!-- Security Colors -->
+    <color name="secure_green">#4CAF50</color>
+    <color name="insecure_red">#F44336</color>
+    <color name="neutral_gray">#9E9E9E</color>
+    
+    <!-- Dark Mode Override -->
+    <color name="dark_primary">#2196F3</color>
+    <color name="dark_primary_text">#FFFFFF</color>
+    <color name="dark_secondary_text">#BDBDBD</color>
+    <color name="dark_background">#121212</color>
+    <color name="dark_surface">#1E1E1E</color>
+    <color name="dark_toolbar">#2C2C2C</color>
+</resources>
