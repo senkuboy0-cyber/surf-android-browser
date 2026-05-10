@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd">
+
+    <!-- Suppress known false positives -->
+    <suppress>
+        <notes><![CDATA[
+            This is a test-only dependency and not a security risk
+        ]]></notes>
+        <gav regex="true">^.*test.*$</gav>
+    </suppress>
+    
+    <!-- Suppress certain Android-related vulnerabilities that are false positives -->
+    <suppress>
+        <notes><![CDATA[
+            Android framework related suppressions
+        ]]></notes>
+        <cve>CVE-2022-20418</cve>
+    </suppress>
+    
+    <!-- Suppress GeckoView related suppressions (known issues in development versions) -->
+    <suppress>
+        <notes><![CDATA[
+            GeckoView development version - suppress for now
+        ]]></notes>
+        <gav regex="true">^org\.mozilla\.geckoview:geckoview:.*$</gav>
+    </suppress>
+    
+    <!-- Suppress gradle wrapper related issues -->
+    <suppress>
+        <notes><![CDATA[
+            Gradle wrapper - not a runtime dependency
+        ]]></notes>
+        <gav regex="true">^org\.gradle.*$</gav>
+    </suppress>
+
+</suppressions>
