@@ -1,0 +1,88 @@
+# Fastfile for Surf Browser
+
+fastlane_version "2.220.0"
+
+default_platform(:android)
+
+platform :android do
+  desc "Runs all the tests"
+  lane :test do
+    gradle(task: "test")
+  end
+
+  desc "Build debug APK"
+  lane :build_debug do
+    gradle(
+      task: "assemble",
+      build_type: "Debug",
+      properties: {
+        "android.injected.signing.store.file" => "debug.keystore",
+        "android.injected.signing.store.password" => "android",
+        "android.injected.signing.key.alias" => "androiddebugkey",
+        "android.injected.signing.key.password" => "android"
+      }
+    )
+  end
+
+  desc "Build release APK"
+  lane :build_release do
+    ensure_env_vars(
+      env_vars: [
+        "SIGNING_KEY",
+        "SIGNING_KEY_PASSWORD",
+        "SIGNING_KEY_ALIAS",
+        "SIGNING_STORE_PASSWORD"
+      ]
+    )
+
+    gradle(
+      task: "assemble",
+      build_type: "Release",
+      properties: {
+        "android.injected.signing.store.file" => ENV["SIGNING_KEY"],
+        "android.injected.signing.store.password" => ENV["SIGNING_STORE_PASSWORD"],
+        "android.injected.signing.key.alias" => ENV["SIGNING_KEY_ALIAS"],
+        "android.injected.signing.key.password" => ENV["SIGNING_KEY_PASSWORD"]
+      }
+    )
+  end
+
+  desc "Deploy to Firebase App Distribution"
+  lane :deploy_firebase do
+    firebase_app_distribution(
+      app: ENV["FIREBASE_APP_ID"],
+      groups: "testers",
+      release_notes: "Latest Surf Browser build",
+      firebase_cli_token: ENV["FIREBASE_TOKEN"],
+      apk_path: "app/build/outputs/apk/debug/app-debug.apk"
+    )
+  end
+
+  desc "Take screenshots"
+  lane :screenshots do
+    gradle(task: "assembleDebugAndroidTest")
+    screengrab(
+      package_name: "com.surf.browser.debug",
+      keystore_path: "app/debug.keystore",
+      keystore_password: "android",
+      key_alias: "androiddebugkey",
+      key_password: "android",
+      app_apk_path: "app/build/outputs/apk/debug/app-debug.apk",
+      tests_apk_path: "app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk"
+    )
+  end
+
+  desc "Run security checks"
+  lane :security do
+    gradle(task: "dependencyCheckAnalyze")
+  end
+
+  desc "Lint the code"
+  lane :lint do
+    gradle(task: "lint")
+  end
+
+  error do |lane, exception|
+    UI.error("Lane #{lane} failed with error: #{exception.message}")
+  end
+end
