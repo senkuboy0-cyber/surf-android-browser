@@ -1,0 +1,90 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    
+    <!-- Toolbar Dimensions -->
+    <dimen name="toolbar_height">56dp</dimen>
+    <dimen name="toolbar_elevation">4dp</dimen>
+    
+    <!-- URL Bar Dimensions -->
+    <dimen name="url_bar_height">48dp</dimen>
+    <dimen name="url_bar_corner_radius">24dp</dimen>
+    <dimen name="url_bar_padding">12dp</dimen>
+    
+    <!-- Bottom Navigation -->
+    <dimen name="bottom_navigation_height">56dp</dimen>
+    <dimen name="bottom_navigation_elevation">8dp</dimen>
+    
+    <!-- Tab Bar -->
+    <dimen name="tab_height">40dp</dimen>
+    <dimen name="tab_corner_radius">20dp</dimen>
+    <dimen name="tab_spacing">8dp</dimen>
+    
+    <!-- Buttons -->
+    <dimen name="button_corner_radius">8dp</dimen>
+    <dimen name="button_padding">16dp</dimen>
+    
+    <!-- Cards -->
+    <dimen name="card_corner_radius">12dp</dimen>
+    <dimen name="card_elevation">2dp</dimen>
+    <dimen name="card_margin">8dp</dimen>
+    
+    <!-- Icons -->
+    <dimen name="icon_size">24dp</dimen>
+    <dimen name="icon_padding">12dp</dimen>
+    <dimen name="icon_margin">8dp</dimen>
+    
+    <!-- Text Sizes -->
+    <dimen name="text_size_small">12sp</dimen>
+    <dimen name="text_size_medium">14sp</dimen>
+    <dimen name="text_size_large">16sp</dimen>
+    <dimen name="text_size_xlarge">18sp</dimen>
+    <dimen name="text_size_xxlarge">20sp</dimen>
+    
+    <!-- Padding -->
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_medium">12dp</dimen>
+    <dimen name="padding_large">16dp</dimen>
+    <dimen name="padding_xlarge">24dp</dimen>
+    
+    <!-- Margins -->
+    <dimen name="margin_small">4dp</dimen>
+    <dimen name="margin_medium">8dp</dimen>
+    <dimen name="margin_large">16dp</dimen>
+    <dimen name="margin_xlarge">24dp</dimen>
+    
+    <!-- WebView -->
+    <dimen name="webview_padding">0dp</dimen>
+    
+    <!-- Progress Bar -->
+    <dimen name="progress_bar_height">4dp</dimen>
+    
+    <!-- Extensions -->
+    <dimen name="extension_card_height">120dp</dimen>
+    <dimen name="extension_icon_size">48dp</dimen>
+    <dimen name="extension_corner_radius">8dp</dimen>
+    
+    <!-- Downloads -->
+    <dimen name="download_item_height">64dp</dimen>
+    <dimen name="download_progress_height">6dp</dimen>
+    
+    <!-- Settings -->
+    <dimen name="setting_item_height">56dp</dimen>
+    <dimen name="setting_icon_size">24dp</dimen>
+    
+    <!-- Bottom Sheet -->
+    <dimen name="bottom_sheet_corner_radius">16dp</dimen>
+    <dimen name="bottom_sheet_peek_height">80dp</dimen>
+    
+    <!-- Navigation -->
+    <dimen name="navigation_drawer_width">280dp</dimen>
+    
+    <!-- Floating Action Button -->
+    <dimen name="fab_size">56dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    
+    <!-- Dialog -->
+    <dimen name="dialog_corner_radius">8dp</dimen>
+    <dimen name="dialog_padding">24dp</dimen>
+</resources>
