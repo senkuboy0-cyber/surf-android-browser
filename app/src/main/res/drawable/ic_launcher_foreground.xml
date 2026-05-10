@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    
+    <!-- Background circle - Ocean blue gradient effect -->
+    <path
+        android:fillColor="@color/primary"
+        android:pathData="M54,0C83.7,0 108,24.3 108,54C108,83.7 83.7,108 54,108C24.3,108 0,83.7 0,54C0,24.3 24.3,0 54,0Z"/>
+    
+    <!-- Wave shape for "Surf" concept -->
+    <path
+        android:fillColor="@color/primary_light"
+        android:pathData="M20,70C30,65 40,75 51,70C62,65 72,75 83,70C88,67.5 100,72.5 100,72.5L100,100C100,104.4 96.4,108 92,108L16,108C11.6,108 8,104.4 8,100L8,72.5C12,74 16,76 20,70Z"/>
+    
+    <!-- Wave 2 -->
+    <path
+        android:fillColor="@color/primary_dark"
+        android:pathData="M15,80C25,75 35,85 46,80C57,75 67,85 78,80C83,77.5 95,82.5 95,82.5L95,100C95,104.4 91.4,108 87,108L11,108C6.6,108 3,104.4 3,100L3,82.5C7,84 11,86 15,80Z"/>
+    
+    <!-- Browser window frame -->
+    <path
+        android:fillColor="@android:color/white"
+        android:strokeColor="@color/primary_dark"
+        android:strokeWidth="2"
+        android:pathData="M25,30C25,27.3 27.3,25 30,25L78,25C80.7,25 83,27.3 83,30L83,65C83,67.7 80.7,70 78,70L30,70C27.3,70 25,67.7 25,65Z"/>
+    
+    <!-- Browser URL bar -->
+    <path
+        android:fillColor="@color/neutral_light"
+        android:pathData="M30,35C30,33.3 31.3,32 33,32L75,32C76.7,32 78,33.3 78,35L78,40C78,41.7 76.7,43 75,43L33,43C31.3,43 30,41.7 30,40Z"/>
+    
+    <!-- Browser content area -->
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M30,46C30,44.3 31.3,43 33,43L75,43C76.7,43 78,44.3 78,46L78,62C78,63.7 76.7,65 75,65L33,65C31.3,65 30,63.7 30,62Z"/>
+    
+    <!-- "S" letter symbol -->
+    <path
+        android:fillColor="@color/primary"
+        android:pathData="M38,49C36,49 35,50 35,52C35,54 36,55 38,55C40,55 42,56 42,58C42,60 40,61 38,61C36,61 35,60 35,58M38,45C40,45 42,46 42,48"
+        android:strokeColor="@color/primary"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"/>
+    
+    <!-- Navigation arrows in browser -->
+    <path
+        android:fillColor="@color/accent"
+        android:pathData="M45,36L42,39L45,42M75,36L72,39L75,42"/>
+    
+    <!-- Security lock icon -->
+    <path
+        android:fillColor="@color/secure_green"
+        android:pathData="M53,36C53,34 54,33 56,33C58,33 59,34 59,36L59,38L53,38ZM52,38L52,42C52,43 53,44 54,44L58,44C59,44 60,43 60,42L60,38C60,35 58,33 56,33C54,33 52,35 52,38Z"/>
+    
+    <!-- Search icon -->
+    <path
+        android:fillColor="@color/primary_text"
+        android:pathData="M63,36C64,36.5 64.5,37 64,38C63.5,39 63,39.5 62,39C61,39.5 60.5,39 60,38C60.5,37 61,36.5 62,36C62.5,36 63,36 63,36ZM64,39L67,42"/>
+    <path
+        android:fillColor="none"
+        android:strokeColor="@color/primary_text"
+        android:strokeWidth="1.5"
+        android:pathData="M61.5,37.5C62,37 62.5,37 63,37C63.5,37 64,37 64.5,37.5C65,38 65,38.5 64.5,39C64,39.5 63.5,40 63,40C62.5,40 62,39.5 61.5,39C61,38.5 61,38 61.5,37.5Z"/>
+    <path
+        android:fillColor="none"
+        android:strokeColor="@color/primary_text"
+        android:strokeWidth="1.5"
+        android:pathData="M64,39L66,41"/>
+    
+    <!-- Reflection effect -->
+    <path
+        android:fillColor="@android:color/white"
+        android:fillAlpha="0.3"
+        android:pathData="M30,28C30,26 31,25 33,25L78,25C80,25 81,26 81,28Z"/>
+
+</vector>
