@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    
+    <!-- Ocean blue gradient background -->
+    <path
+        android:fillColor="@color/primary_dark"
+        android:pathData="M54,0C83.7,0 108,24.3 108,54C108,83.7 83.7,108 54,108C24.3,108 0,83.7 0,54C0,24.3 24.3,0 54,0Z"/>
+    
+    <!-- Underwater wave effect -->
+    <path
+        android:fillColor="@color/primary"
+        android:fillAlpha="0.7"
+        android:pathData="M0,60C15,55 20,65 35,60C50,55 60,65 75,60C90,55 95,65 108,60L108,108L0,108Z"/>
+    
+    <!-- Ocean depth gradient -->
+    <path
+        android:fillColor="@color/primary"
+        android:fillAlpha="0.5"
+        android:pathData="M0,70C18,65 25,72 45,70C65,68 70,75 90,70C100,68 105,72 108,73L108,108L0,108Z"/>
+    
+    <!-- Deep ocean effect -->
+    <path
+        android:fillColor="@color/primary"
+        android:fillAlpha="0.3"
+        android:pathData="M0,80C20,75 30,80 50,80C70,80 80,75 100,78C105,79 107,80 108,81L108,108L0,108Z"/>
+    
+    <!-- Surfing wave splash effect -->
+    <path
+        android:fillColor="@android:color/white"
+        android:fillAlpha="0.2"
+        android:pathData="M10,45C15,43 18,47 23,45C28,43 31,47 36,45C41,43 44,47 49,45C54,43 57,47 62,45C67,43 70,47 75,45C80,43 83,47 88,45C93,43 96,47 101,45"/>
+    
+    <!-- Light rays effect -->
+    <path
+        android:fillColor="@android:color/white"
+        android:fillAlpha="0.1"
+        android:pathData="M20,20L15,0L25,0L25,20C25,20 20,20 20,20Z"/>
+    
+    <path
+        android:fillColor="@android:color/white"
+        android:fillAlpha="0.1"
+        android:pathData="M54,20L49,0L59,0L59,20C59,20 54,20 54,20Z"/>
+    
+    <path
+        android:fillColor="@android:color/white"
+        android:fillAlpha="0.1"
+        android:pathData="M88,20L83,0L93,0L93,20C93,20 88,20 88,20Z"/>
+    
+    <!-- Ocean bubbles -->
+    <path
+        android:fillColor="@android:color/white"
+        android:fillAlpha="0.3"
+        android:pathData="M15,90C17,90 18,91 18,93C18,95 17,96 15,96C13,96 12,95 12,93C12,91 13,90 15,90Z"/>
+    
+    <path
+        android:fillColor="@android:color/white"
+        android:fillAlpha="0.3"
+        android:pathData="M35,85C37,85 38,86 38,88C38,90 37,91 35,91C33,91 32,90 32,88C32,86 33,85 35,85Z"/>
+    
+    <path
+        android:fillColor="@android:color/white"
+        android:fillAlpha="0.3"
+        android:pathData="M55,95C57,95 58,96 58,98C58,100 57,101 55,101C53,101 52,100 52,98C52,96 53,95 55,95Z"/>
+    
+    <path
+        android:fillColor="@android:color/white"
+        android:fillAlpha="0.3"
+        android:pathData="M75,88C77,88 78,89 78,91C78,93 77,94 75,94C73,94 72,93 72,91C72,89 73,88 75,88Z"/>
+    
+    <path
+        android:fillColor="@android:color/white"
+        android:fillAlpha="0.3"
+        android:pathData="M85,92C87,92 88,93 88,95C88,97 87,98 85,98C83,98 82,97 82,95C82,93 83,92 85,92Z"/>
+
+</vector>
