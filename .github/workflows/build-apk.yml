@@ -1,0 +1,271 @@
+name: Build and Release APK
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      release:
+        description: 'Create release?'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
+      apk_type:
+        description: 'APK type'
+        required: false
+        default: 'debug'
+        type: choice
+        options:
+          - 'debug'
+          - 'release'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup Java JDK
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: gradle
+
+    - name: Setup Gradle
+      uses: gradle/gradle-build-action@v3
+      with:
+        gradle-version: wrapper
+
+    - name: Cache Gradle Dependencies
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.gradle/caches/modules-2
+          ~/.gradle/caches/jars-3
+          ~/.gradle/wrapper
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
+
+    - name: Grant Execute Permission for Gradle
+      run: chmod +x ./gradlew
+
+    - name: Create Keystore Directory
+      run: mkdir -p app/src/main/resources
+
+    - name: Generate Debug Keystore
+      run: |
+        keytool -genkey -v -keystore app/debug.keystore -alias surf_browser -keyalg RSA -keysize 2048 -validity 10000 -storepass android -keypass android -dname "CN=Surf Browser, OU=Development, O=Surf Apps, L=Silicon Valley, S=CA, C=US"
+
+    - name: Copy Debug Keystore
+      run: cp app/debug.keystore app/src/main/resources/
+
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+      with:
+        api-level: 34
+        ndk: false
+
+    - name: Display Gradle Information
+      run: ./gradlew --version
+
+    - name: Clean Project
+      run: ./gradlew clean
+
+    - name: Check Dependencies
+      run: ./gradlew dependencies --configuration implementation
+
+    - name: Build Debug APK
+      run: ./gradlew assembleDebug --stacktrace --info
+      if: github.event.inputs.apk_type == 'debug' || github.event.inputs.apk_type == '' || github.event_name != 'workflow_dispatch'
+
+    - name: Build Release APK
+      run: ./gradlew assembleRelease --stacktrace
+      if: github.event.inputs.apk_type == 'release' && github.event_name == 'workflow_dispatch'
+
+    - name: Upload Debug APK Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: surf-browser-debug-apk
+        path: app/build/outputs/apk/debug/app-debug.apk
+        retention-days: 30
+      if: always() && (github.event.inputs.apk_type == 'debug' || github.event.inputs.apk_type == '' || github.event_name != 'workflow_dispatch')
+
+    - name: Upload Release APK Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: surf-browser-release-apk
+        path: app/build/outputs/apk/release/app-release.apk
+        retention-days: 90
+      if: always() && github.event.inputs.apk_type == 'release' && github.event_name == 'workflow_dispatch'
+
+    - name: List APK Files
+      run: |
+        echo "APK files in build directory:"
+        find app/build/outputs/apk -name "*.apk" -type f -exec ls -lh {} \; || true
+
+    - name: Extract APK Version Info
+      id: apk_info
+      run: |
+        APK_PATH="app/build/outputs/apk/debug/app-debug.apk"
+        if [ -f "$APK_PATH" ]; then
+          APK_SIZE=$(stat -c%s "$APK_PATH")
+          APK_DATE=$(date +%Y-%m-%d-%H-%M-%S)
+          COMMIT_HASH=$(git rev-parse --short HEAD)
+          echo "apk_size=$APK_SIZE" >> $GITHUB_OUTPUT
+          echo "apk_date=$APK_DATE" >> $GITHUB_OUTPUT
+          echo "commit_hash=$COMMIT_HASH" >> $GITHUB_OUTPUT
+          echo "APK Size: $APK_SIZE bytes"
+          echo "Build Date: $APK_DATE"
+          echo "Commit Hash: $COMMIT_HASH"
+        fi
+
+    - name: Generate APK Checksum
+      run: |
+        APK_PATH="app/build/outputs/apk/debug/app-debug.apk"
+        if [ -f "$APK_PATH" ]; then
+          sha256sum "$APK_PATH" > app/build/outputs/apk/debug/sha256sum.txt
+          md5sum "$APK_PATH" > app/build/outputs/apk/debug/md5sum.txt
+        fi
+      if: always()
+
+    - name: Upload Checksum Files
+      uses: actions/upload-artifact@v4
+      with:
+        name: apk-checksums
+        path: |
+          app/build/outputs/apk/debug/sha256sum.txt
+          app/build/outputs/apk/debug/md5sum.txt
+      if: always()
+
+    - name: Create Release (Manual)
+      uses: softprops/action-gh-release@v2
+      with:
+        files: |
+          app/build/outputs/apk/debug/app-debug.apk
+          app/build/outputs/apk/debug/sha256sum.txt
+          app/build/outputs/apk/debug/md5sum.txt
+        name: Surf Browser v${{ steps.apk_info.outputs.apk_date }}
+        body: |
+          ## 🌊 Surf Browser APK - Debug Build
+          
+          ### 📱 Build Information:
+          - **Build Date**: ${{ steps.apk_info.outputs.apk_date }}
+          - **Commit Hash**: ${{ steps.apk_info.outputs.commit_hash }}
+          - **APK Size**: ${{ steps.apk_info.outputs.apk_size }} bytes
+          - **Type**: Debug Build
+          
+          ### 🚀 Features:
+          - ✅ GeckoView Browser Engine
+          - ✅ Multi-tab Support
+          - ✅ Extension Support
+          - ✅ Ad Blocking
+          - ✅ Private Mode
+          - ✅ Dark/Light Theme
+          - ✅ Bookmarks & History
+          
+          ### 📋 Installation:
+          1. Download `app-debug.apk`
+          2. Enable "Install from unknown sources" in Android settings
+          3. Install the APK
+          
+          ### 🔐 Checksums:
+          - **SHA256**: Check `sha256sum.txt`
+          - **MD5**: Check `md5sum.txt`
+          
+          ### 🐛 Debug Information:
+          - Logging enabled
+          - Debug certificate used
+          - No minification
+          - Includes debug symbols
+          
+          ---
+          _Built with ❤️ using GitHub Actions_
+          
+        prerelease: false
+        draft: false
+        generate_release_notes: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      if: github.event.inputs.release == 'true' && github.event_name == 'workflow_dispatch'
+
+    - name: Comment PR with APK Download Link
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');
+          const path = './app/build/outputs/apk/debug/app-debug.apk';
+          
+          if (fs.existsSync(path)) {
+            const stats = fs.statSync(path);
+            const size = (stats.size / (1024 * 1024)).toFixed(2) + ' MB';
+            
+            const comment = `## 🚀 APK Build Ready!
+            
+            ### 📱 Build Details:
+            - **Status**: ✅ Success
+            - **Size**: ${size}
+            - **Type**: Debug APK
+            - **Branch**: \`${{ github.head_ref }}\`
+            - **Commit**: \`${{ github.sha.substring(0, 7) }}\`
+            
+            ### 📥 Download:
+            1. Go to **Actions** tab
+            2. Open this workflow run
+            3. Download **surf-browser-debug-apk** artifact
+            4. Extract `app-debug.apk`
+            
+            ### 🔧 Installation:
+            1. Enable "Install from unknown sources"
+            2. Install the APK
+            3. Launch **Surf Browser**
+            
+            ---`;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+          }
+
+    - name: Notify on Success
+      if: success()
+      run: |
+        echo "🎉 APK Build Successful!"
+        echo "📱 Surf Browser APK Size: ${{ steps.apk_info.outputs.apk_size }} bytes"
+        echo "🔗 Check Actions tab for download"
+        echo "📅 Build Date: ${{ steps.apk_info.outputs.apk_date }}"
+        echo "🌊 Surf Browser - Ready for Testing!"
+
+    - name: Notify on Failure
+      if: failure()
+      uses: actions/github-script@v7
+      with:
+        script: |
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: `## ❌ Build Failed
+            
+            The APK build process encountered an error.
+            
+            Please check the [workflow logs](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) for details.
+            
+            ---
+            `,
+          });
