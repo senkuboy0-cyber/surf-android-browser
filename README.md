@@ -180,7 +180,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 For support and inquiries:
 - GitHub Issues: [Create an issue](https://github.com/senkuboy0-cyber/surf-android-browser/issues)
-- Email: senkuboy0@gmail.com
+- Email: 
 
 ---
 
